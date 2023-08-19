@@ -10,6 +10,9 @@
 
 const submitButton = document.querySelector('.calculate');
 const alert = document.querySelector('.alert');
+const bmiAnswer = document.querySelector('.bmivalue');
+const bmiStatus = document.querySelector('.bmistatus');
+const clearBtn = document.querySelector('.clearing');
 
 submitButton.addEventListener('click', function (e) {
     e.preventDefault()
@@ -28,7 +31,30 @@ submitButton.addEventListener('click', function (e) {
             alert.style.display = 'none';
         },5000)
     }
+    const heightInMeters = height / 100
+
+    const bmiValue = ((weight / (heightInMeters * heightInMeters)) * 100).toFixed(2)
+    bmiAnswer.textContent = bmiValue
+
+    console.log(typeof bmiValue);
+
+    if (Number(bmiValue) < 18.5) {
+        bmiStatus.textContent = 'You are Under Weight'
+    } else if (Number(bmiValue) >= 18.5 && Number(bmiValue) <= 24.9) {
+        bmiStatus.textContent = 'You are Healthy Weight'
+    } else if (Number(bmiValue) >= 25 && Number(bmiValue) <= 29.9) {
+        bmiStatus.textContent = 'You are Over Weight'
+    } else if (Number(bmiValue) >= 30) {
+        bmiStatus.textContent = 'You are Obese'
+    }
         
     
 
 })
+clearBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    weight.value = '';
+    height.value = '';
+})
+
+
